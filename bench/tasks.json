@@ -1,0 +1,122 @@
+[
+  {
+    "id": "task_01",
+    "difficulty": "easy",
+    "description": "Write a function two_sum(nums: list[int], target: int) -> list[int] that returns indices of the two numbers such that they add up to target. Each input has exactly one solution, and you may not use the same element twice. Return the indices sorted in ascending order.",
+    "tests": "from solution import two_sum\n\ndef test_basic():\n    assert two_sum([2, 7, 11, 15], 9) == [0, 1]\n\ndef test_unsorted():\n    assert two_sum([3, 2, 4], 6) == [1, 2]\n\ndef test_duplicates():\n    assert two_sum([3, 3], 6) == [0, 1]\n\ndef test_negatives():\n    assert two_sum([-1, -2, -3, -4, -5], -8) == [2, 4]\n\ndef test_zero():\n    assert two_sum([0, 4, 3, 0], 0) == [0, 3]\n"
+  },
+  {
+    "id": "task_02",
+    "difficulty": "easy",
+    "description": "Write a function is_palindrome(s: str) -> bool that returns True if the string is a palindrome after converting all uppercase letters to lowercase and removing all non-alphanumeric characters. An empty string or string with only symbols should return True.",
+    "tests": "from solution import is_palindrome\n\ndef test_valid_phrase():\n    assert is_palindrome('A man, a plan, a canal: Panama') is True\n\ndef test_invalid_phrase():\n    assert is_palindrome('race a car') is False\n\ndef test_empty():\n    assert is_palindrome('') is True\n\ndef test_symbols_only():\n    assert is_palindrome('., !?') is True\n\ndef test_numbers():\n    assert is_palindrome('0P') is False\n    assert is_palindrome('12021') is True\n"
+  },
+  {
+    "id": "task_03",
+    "difficulty": "easy",
+    "description": "Write two functions: encode_rle(s: str) -> str and decode_rle(s: str) -> str for run-length encoding. encode_rle('WWWBWW') -> '3W1B2W'. If empty string is given, return ''. decode_rle('3W1B2W') -> 'WWWBWW'. Multi-digit counts like '12A' must be properly parsed to 12 'A's.",
+    "tests": "from solution import encode_rle, decode_rle\n\ndef test_empty():\n    assert encode_rle('') == ''\n    assert decode_rle('') == ''\n\ndef test_single_chars():\n    assert encode_rle('A') == '1A'\n    assert decode_rle('1A') == 'A'\n\ndef test_basic_rle():\n    assert encode_rle('WWWBWW') == '3W1B2W'\n    assert decode_rle('3W1B2W') == 'WWWBWW'\n\ndef test_multi_digit():\n    long_str = 'A' * 12 + 'B' * 5\n    encoded = encode_rle(long_str)\n    assert encoded == '12A5B'\n    assert decode_rle('12A5B') == long_str\n"
+  },
+  {
+    "id": "task_04",
+    "difficulty": "easy",
+    "description": "Write a function chunk_list(lst: list, size: int) -> list[list] that splits a list into sublists of length size. The final chunk may contain fewer elements. If size <= 0, raise a ValueError. If lst is empty, return [].",
+    "tests": "import pytest\nfrom solution import chunk_list\n\ndef test_even_chunks():\n    assert chunk_list([1, 2, 3, 4], 2) == [[1, 2], [3, 4]]\n\ndef test_uneven_chunks():\n    assert chunk_list([1, 2, 3, 4, 5], 2) == [[1, 2], [3, 4], [5]]\n\ndef test_empty():\n    assert chunk_list([], 3) == []\n\ndef test_size_greater_than_len():\n    assert chunk_list([1, 2], 5) == [[1, 2]]\n\ndef test_invalid_size():\n    with pytest.raises(ValueError):\n        chunk_list([1, 2], 0)\n    with pytest.raises(ValueError):\n        chunk_list([1, 2], -1)\n"
+  },
+  {
+    "id": "task_05",
+    "difficulty": "easy",
+    "description": "Write a function flatten_dict(d: dict, sep: str = '.') -> dict that flattens a nested dictionary. Keys should be concatenated using sep. E.g. {'a': {'b': 1, 'c': 2}, 'd': 3} becomes {'a.b': 1, 'a.c': 2, 'd': 3}. Empty nested dicts {} should be preserved as {key: {}}. Empty top-level dict returns {}.",
+    "tests": "from solution import flatten_dict\n\ndef test_flat():\n    assert flatten_dict({'a': 1, 'b': 2}) == {'a': 1, 'b': 2}\n\ndef test_nested():\n    data = {'a': {'b': 1, 'c': {'d': 2}}, 'e': 3}\n    assert flatten_dict(data) == {'a.b': 1, 'a.c.d': 2, 'e': 3}\n\ndef test_custom_separator():\n    data = {'a': {'b': 1}}\n    assert flatten_dict(data, sep='_') == {'a_b': 1}\n\ndef test_empty():\n    assert flatten_dict({}) == {}\n\ndef test_empty_nested():\n    assert flatten_dict({'a': {}}) == {'a': {}}\n"
+  },
+  {
+    "id": "task_06",
+    "difficulty": "medium",
+    "description": "Write a function merge_intervals(intervals: list[list[int]]) -> list[list[int]] that merges all overlapping intervals. Intervals are [start, end]. Intervals that touch (e.g. [1, 4] and [4, 5]) are considered overlapping. Return the merged intervals sorted by start time.",
+    "tests": "from solution import merge_intervals\n\ndef test_basic():\n    assert merge_intervals([[1, 3], [2, 6], [8, 10], [15, 18]]) == [[1, 6], [8, 10], [15, 18]]\n\ndef test_touching():\n    assert merge_intervals([[1, 4], [4, 5]]) == [[1, 5]]\n\ndef test_enclosed():\n    assert merge_intervals([[1, 10], [2, 3], [4, 8]]) == [[1, 10]]\n\ndef test_unsorted_input():\n    assert merge_intervals([[5, 7], [1, 3], [2, 4]]) == [[1, 4], [5, 7]]\n\ndef test_empty_and_single():\n    assert merge_intervals([]) == []\n    assert merge_intervals([[1, 2]]) == [[1, 2]]\n"
+  },
+  {
+    "id": "task_07",
+    "difficulty": "medium",
+    "description": "Write a function length_of_longest_substring(s: str) -> int that returns the length of the longest substring without duplicate characters.",
+    "tests": "from solution import length_of_longest_substring\n\ndef test_standard():\n    assert length_of_longest_substring('abcabcbb') == 3\n\ndef test_all_same():\n    assert length_of_longest_substring('bbbbb') == 1\n\ndef test_sub_sequence():\n    assert length_of_longest_substring('pwwkew') == 3\n\ndef test_empty():\n    assert length_of_longest_substring('') == 0\n\ndef test_spaces_and_symbols():\n    assert length_of_longest_substring(' ') == 1\n    assert length_of_longest_substring('abba') == 2\n"
+  },
+  {
+    "id": "task_08",
+    "difficulty": "medium",
+    "description": "Implement a class LRUCache(capacity: int). get(key: int) -> int returns the value of key if it exists, else -1, and updates recency. put(key: int, value: int) -> None inserts or updates the value. If capacity is exceeded, evict the least recently used key. Updating an existing key must not evict any key. If capacity <= 0, raise ValueError.",
+    "tests": "import pytest\nfrom solution import LRUCache\n\ndef test_basic_lru():\n    cache = LRUCache(2)\n    cache.put(1, 1)\n    cache.put(2, 2)\n    assert cache.get(1) == 1\n    cache.put(3, 3)  # evicts key 2\n    assert cache.get(2) == -1\n    cache.put(4, 4)  # evicts key 1\n    assert cache.get(1) == -1\n    assert cache.get(3) == 3\n    assert cache.get(4) == 4\n\ndef test_update_existing_key():\n    cache = LRUCache(2)\n    cache.put(1, 10)\n    cache.put(2, 20)\n    cache.put(1, 15)  # update existing\n    cache.put(3, 30)  # should evict key 2, NOT key 1\n    assert cache.get(1) == 15\n    assert cache.get(2) == -1\n    assert cache.get(3) == 30\n\ndef test_invalid_capacity():\n    with pytest.raises(ValueError):\n        LRUCache(0)\n"
+  },
+  {
+    "id": "task_09",
+    "difficulty": "medium",
+    "description": "Write a function spiral_order(matrix: list[list[int]]) -> list[int] that returns all elements of an m x n matrix in clockwise spiral order. If matrix is empty or [[]], return [].",
+    "tests": "from solution import spiral_order\n\ndef test_square():\n    m = [\n        [1, 2, 3],\n        [4, 5, 6],\n        [7, 8, 9]\n    ]\n    assert spiral_order(m) == [1, 2, 3, 6, 9, 8, 7, 4, 5]\n\ndef test_rectangular_wide():\n    m = [\n        [1, 2, 3, 4],\n        [5, 6, 7, 8],\n        [9, 10, 11, 12]\n    ]\n    assert spiral_order(m) == [1, 2, 3, 4, 8, 12, 11, 10, 9, 5, 6, 7]\n\ndef test_single_row_and_col():\n    assert spiral_order([[1, 2, 3]]) == [1, 2, 3]\n    assert spiral_order([[1], [2], [3]]) == [1, 2, 3]\n\ndef test_empty():\n    assert spiral_order([]) == []\n    assert spiral_order([[]]) == []\n"
+  },
+  {
+    "id": "task_10",
+    "difficulty": "medium",
+    "description": "Write a function group_anagrams(strs: list[str]) -> list[list[str]] that groups anagrams together. Each individual group of anagrams should be sorted in lexicographical order, and the outer list of groups must be sorted by the first element of each group.",
+    "tests": "from solution import group_anagrams\n\ndef test_standard():\n    words = ['eat', 'tea', 'tan', 'ate', 'nat', 'bat']\n    expected = [\n        ['ate', 'eat', 'tea'],\n        ['bat'],\n        ['nat', 'tan']\n    ]\n    assert group_anagrams(words) == expected\n\ndef test_empty_strings():\n    assert group_anagrams(['', '']) == [['', '']]\n    assert group_anagrams(['']) == [['']]\n\ndef test_single_character():\n    assert group_anagrams(['a']) == [['a']]\n"
+  },
+  {
+    "id": "task_11",
+    "difficulty": "medium",
+    "description": "Write a function eval_rpn(tokens: list[str]) -> int that evaluates an arithmetic expression in Reverse Polish Notation. Valid operators are '+', '-', '*', and '/'. Division between two integers must truncate toward zero (e.g. 6 / -132 = 0, -7 / 3 = -2).",
+    "tests": "from solution import eval_rpn\n\ndef test_basic_addition():\n    assert eval_rpn(['2', '1', '+', '3', '*']) == 9\n\ndef test_division_and_subtraction():\n    assert eval_rpn(['4', '13', '5', '/', '+']) == 6\n\ndef test_truncate_toward_zero():\n    assert eval_rpn(['10', '6', '9', '3', '+', '-11', '*', '/', '*', '17', '+', '5', '+']) == 22\n\ndef test_negative_division():\n    assert eval_rpn(['-7', '3', '/']) == -2\n    assert eval_rpn(['7', '-3', '/']) == -2\n"
+  },
+  {
+    "id": "task_12",
+    "difficulty": "medium",
+    "description": "Write a function search_rotated(nums: list[int], target: int) -> int that searches for target in an array of distinct integers that has been rotated at an unknown pivot. Returns index if found, else -1. Must run in O(log n) time.",
+    "tests": "from solution import search_rotated\n\ndef test_found_rotated():\n    assert search_rotated([4, 5, 6, 7, 0, 1, 2], 0) == 4\n\ndef test_not_found():\n    assert search_rotated([4, 5, 6, 7, 0, 1, 2], 3) == -1\n\ndef test_single_element():\n    assert search_rotated([1], 0) == -1\n    assert search_rotated([1], 1) == 0\n\ndef test_two_elements():\n    assert search_rotated([3, 1], 1) == 1\n    assert search_rotated([3, 1], 3) == 0\n"
+  },
+  {
+    "id": "task_13",
+    "difficulty": "medium",
+    "description": "Write a function decode_string(s: str) -> str that decodes strings formatted like k[encoded_string], where the encoded_string inside the square brackets is being repeated exactly k times. k is guaranteed to be a positive integer. Encodings may be nested.",
+    "tests": "from solution import decode_string\n\ndef test_simple_repeat():\n    assert decode_string('3[a]2[bc]') == 'aaabcbc'\n\ndef test_nested_repeat():\n    assert decode_string('3[a2[c]]') == 'accaccacc'\n\ndef test_mixed():\n    assert decode_string('2[abc]3[cd]ef') == 'abcabccdcdcdef'\n\ndef test_multi_digit_k():\n    assert decode_string('10[a]') == 'aaaaaaaaaa'\n\ndef test_empty():\n    assert decode_string('') == ''\n"
+  },
+  {
+    "id": "task_14",
+    "difficulty": "medium",
+    "description": "Write a function product_except_self(nums: list[int]) -> list[int] that returns an array answer such that answer[i] is equal to the product of all elements of nums except nums[i]. Must run in O(n) time without using the division operator.",
+    "tests": "from solution import product_except_self\n\ndef test_positive():\n    assert product_except_self([1, 2, 3, 4]) == [24, 12, 8, 6]\n\ndef test_with_zero():\n    assert product_except_self([-1, 1, 0, -3, 3]) == [0, 0, 9, 0, 0]\n\ndef test_multiple_zeros():\n    assert product_except_self([0, 4, 0]) == [0, 0, 0]\n\ndef test_two_elements():\n    assert product_except_self([2, 5]) == [5, 2]\n"
+  },
+  {
+    "id": "task_15",
+    "difficulty": "medium",
+    "description": "Write a function top_k_frequent(nums: list[int], k: int) -> list[int] that returns the k most frequent elements sorted by frequency in descending order. If frequencies are tied, break ties by element value in ascending order.",
+    "tests": "from solution import top_k_frequent\n\ndef test_basic_frequencies():\n    assert top_k_frequent([1, 1, 1, 2, 2, 3], 2) == [1, 2]\n\ndef test_tie_breaking():\n    # 1, 2, 3, 4 all appear once. Sorted ascending by value: 1, 2, 3, 4. Top 2: [1, 2]\n    assert top_k_frequent([4, 3, 2, 1], 2) == [1, 2]\n\ndef test_single_element():\n    assert top_k_frequent([1], 1) == [1]\n\ndef test_negative_values():\n    assert top_k_frequent([-1, -1, 2, 2, 3], 2) == [-1, 2]\n"
+  },
+  {
+    "id": "task_16",
+    "difficulty": "hard",
+    "description": "Write a function calculate(s: str) -> int that evaluates a mathematical expression string containing non-negative integers, '+', '-', '*', '/', and parentheses '(' and ')'. Expression may contain spaces. Integer division must truncate toward zero.",
+    "tests": "from solution import calculate\n\ndef test_simple_precedence():\n    assert calculate('3+2*2') == 7\n    assert calculate(' 3/2 ') == 1\n    assert calculate(' 3+5 / 2 ') == 5\n\ndef test_parentheses():\n    assert calculate('(1+(4+5+2)-3)+(6+8)') == 23\n    assert calculate('2 * (5 + 5 * 2) / 3') == 10\n\ndef test_nested_complex():\n    assert calculate('14 - (3 + (4 * 2))') == 3\n"
+  },
+  {
+    "id": "task_17",
+    "difficulty": "hard",
+    "description": "Write a function full_justify(words: list[str], max_width: int) -> list[str] that formats text so each line has exactly max_width characters and is fully justified. Distribute extra spaces evenly between words, with leftover spaces allocated to left-most slots. The last line and lines with a single word must be left-justified (words separated by single space, padded with spaces on the right to max_width).",
+    "tests": "from solution import full_justify\n\ndef test_sample_1():\n    words = ['This', 'is', 'an', 'example', 'of', 'text', 'justification.']\n    expected = [\n        'This    is    an',\n        'example  of text',\n        'justification.  '\n    ]\n    assert full_justify(words, 16) == expected\n\ndef test_sample_2():\n    words = ['What','must','be','acknowledgment','shall','be']\n    expected = [\n        'What   must   be',\n        'acknowledgment  ',\n        'shall be        '\n    ]\n    assert full_justify(words, 16) == expected\n\ndef test_single_long_word():\n    words = ['hello']\n    assert full_justify(words, 10) == ['hello     ']\n"
+  },
+  {
+    "id": "task_18",
+    "difficulty": "hard",
+    "description": "Write a function ladder_length(begin_word: str, end_word: str, word_list: list[str]) -> int that returns the number of words in the shortest transformation sequence from begin_word to end_word, where each step changes exactly one letter and each transformed word must exist in word_list. Return 0 if no valid sequence exists.",
+    "tests": "from solution import ladder_length\n\ndef test_valid_ladder():\n    words = ['hot', 'dot', 'dog', 'lot', 'log', 'cog']\n    assert ladder_length('hit', 'cog', words) == 5\n\ndef test_end_not_in_list():\n    words = ['hot', 'dot', 'dog', 'lot', 'log']\n    assert ladder_length('hit', 'cog', words) == 0\n\ndef test_no_transformation_path():\n    words = ['hot', 'dog']\n    assert ladder_length('hit', 'cog', words) == 0\n\ndef test_single_step():\n    words = ['cog']\n    assert ladder_length('log', 'cog', words) == 2\n"
+  },
+  {
+    "id": "task_19",
+    "difficulty": "hard",
+    "description": "Write a function merge_k_sorted(lists: list[list[int]]) -> list[int] that merges k sorted integer lists into one sorted list. Must handle empty input list and empty sublists efficiently.",
+    "tests": "from solution import merge_k_sorted\n\ndef test_three_lists():\n    data = [[1, 4, 5], [1, 3, 4], [2, 6]]\n    assert merge_k_sorted(data) == [1, 1, 2, 3, 4, 4, 5, 6]\n\ndef test_empty():\n    assert merge_k_sorted([]) == []\n    assert merge_k_sorted([[], []]) == []\n\ndef test_mixed_empty():\n    assert merge_k_sorted([[], [1]]) == [1]\n\ndef test_negatives():\n    data = [[-2, 0, 4], [-3, 1], [-5, 6]]\n    assert merge_k_sorted(data) == [-5, -3, -2, 0, 1, 4, 6]\n"
+  },
+  {
+    "id": "task_20",
+    "difficulty": "hard",
+    "description": "Implement a class Codec with serialize(root) -> str and deserialize(data: str) -> TreeNode | None. TreeNode is defined as class TreeNode: def __init__(self, val=0, left=None, right=None): self.val = val; self.left = left; self.right = right. serialize converts a tree to a string, and deserialize reconstructs the identical tree.",
+    "tests": "from solution import Codec, TreeNode\n\ndef test_roundtrip_balanced():\n    # Tree: 1 -> left: 2, right: 3 (right.left: 4, right.right: 5)\n    root = TreeNode(1, TreeNode(2), TreeNode(3, TreeNode(4), TreeNode(5)))\n    codec = Codec()\n    data = codec.serialize(root)\n    reconstructed = codec.deserialize(data)\n    assert reconstructed is not None\n    assert reconstructed.val == 1\n    assert reconstructed.left.val == 2\n    assert reconstructed.right.val == 3\n    assert reconstructed.right.left.val == 4\n    assert reconstructed.right.right.val == 5\n\ndef test_empty_tree():\n    codec = Codec()\n    assert codec.deserialize(codec.serialize(None)) is None\n\ndef test_single_node_negative():\n    codec = Codec()\n    root = TreeNode(-42)\n    reconstructed = codec.deserialize(codec.serialize(root))\n    assert reconstructed is not None\n    assert reconstructed.val == -42\n    assert reconstructed.left is None\n    assert reconstructed.right is None\n"
+  }
+]

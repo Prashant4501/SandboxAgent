@@ -1,0 +1,27 @@
+# Environment & Secrets
+.env
+.env.local
+!.env.example
+
+# Python Bytecode & Cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+
+# Benchmark Evaluation & Results
+bench/eval_cache.json
+.eval_cache.json
+eval_cache.json
+results.md
+
+# Virtual Environments
+.venv/
+venv/
+env/
+
+# OS & Editor Artifacts
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
